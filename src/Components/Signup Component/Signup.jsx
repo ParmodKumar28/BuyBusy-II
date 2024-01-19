@@ -12,11 +12,12 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    // Consuming state from the reducer
     const { loading } = useSelector(userSelector);
 
     // Calling signup
     const handleSubmit = (e) => {
-        dispatch(signInActionCalled);
+        dispatch(signInActionCalled());
         e.preventDefault(); // Prevent default form submission
         dispatch(signUpAsync({ name, email, password })); // Trigger signup logic dispatching action here
         setName("");

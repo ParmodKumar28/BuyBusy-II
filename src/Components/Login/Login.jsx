@@ -12,6 +12,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    // Consuming state from user reducer
     const { loading } = useSelector(userSelector);
 
     // Calling Sign In

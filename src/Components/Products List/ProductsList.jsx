@@ -6,7 +6,7 @@ import { productsSelector } from "../../Redux/Reducer/productsReducer";
 
 // Page for the Prdouct's List
 export default function ProductsList() {
-    // State from products reducer here
+    // States from products reducer here
     const { products, isFiltered, filteredProducts } = useSelector(productsSelector);
 
     // Returning Jsx

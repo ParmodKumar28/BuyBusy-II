@@ -11,7 +11,7 @@ import { fetchOrders, orderSelector } from "../../Redux/Reducer/OrderReducer";
 export default function OrderPage() {
     const dispatch = useDispatch();
 
-    // Getting users State
+    // Getting States from reducers here
     const { signedUser } = useSelector(userSelector);
     const { orderLoading, orders } = useSelector(orderSelector);
 

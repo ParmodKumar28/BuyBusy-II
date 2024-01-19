@@ -17,7 +17,7 @@ export default function Products() {
     // Dispatching side fetchDataAsync thunk here
     useEffect(() => {
         dispatch(fetchDataAsync());
-    }, []);
+    }, [dispatch]);
 
     // Returning Jsx
     return (
