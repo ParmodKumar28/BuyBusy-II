@@ -69,6 +69,7 @@ export const logoutAsync = createAsyncThunk("users/logout", async() => {
 const INITIAL_STATE = {
     signedUser: null,
     isSignIn: false,
+    loading: false
 }
 
 // Creating user slice here
@@ -80,15 +81,26 @@ export const userSlice = createSlice({
         verifyUserSignIn: (state, action) => {
             state.signedUser = action.payload.user;
             state.isSignIn = action.payload.signIn;
+        },
+        signInActionCalled: (state, action) => {
+            state.loading = true;
         }
     },
+    extraReducers: (builder) => {
+        builder.addCase(signUpAsync.fulfilled, (state, action) => {
+            state.loading = false;
+        });
+        builder.addCase(signInAsync.fulfilled, (state, action) => {
+            state.loading = false;
+        });
+    }
 });
 
 // Extracting userReducer from the slice
 export const userReducer = userSlice.reducer;
 
 // Extracting actions from the slice here.
-export const { verifyUserSignIn } = userSlice.actions;
+export const { verifyUserSignIn, signInActionCalled } = userSlice.actions;
 
 // Getting state from the userReducer
 export const userSelector = (state) => state.userReducer;

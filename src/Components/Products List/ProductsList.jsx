@@ -1,13 +1,14 @@
 // Imports
-import { useProductContext } from "../../Context/productsContext"
+import { useSelector } from "react-redux";
 import ProductsCard from "../Product Card/ProductCard"
 import styles from "./ProductsList.module.css"
+import { productsSelector } from "../../Redux/Reducer/productsReducer";
 
 // Page for the Prdouct's List
 export default function ProductsList(){
-    // Fetching context here.
-    const {products, isFiltered, filteredProducts} = useProductContext();
-
+    // State from products reducer here
+    const { products, isFiltered, filteredProducts } = useSelector(productsSelector);
+    
     // Returning Jsx
     return(
         <div className={styles.productListConatiner}>

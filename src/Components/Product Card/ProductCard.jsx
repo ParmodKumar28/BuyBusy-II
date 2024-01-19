@@ -7,7 +7,7 @@ import { userSelector } from "../../Redux/Reducer/userReducer";
 
 // Functional component for the ProductCard
 export default function ProductsCard({id, title, price, description, image}){
-    // Consuming User Context
+    // Consuming state from reducers here.
     const {signedUser} = useSelector(userSelector);
     const {handleAddToCart} = useProductContext();
     const navigate = useNavigate();

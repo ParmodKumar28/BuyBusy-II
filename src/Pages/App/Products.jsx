@@ -4,11 +4,24 @@ import Search from "../../Components/Search/Search";
 import ProductsList from "../../Components/Products List/ProductsList";
 import { useProductContext } from "../../Context/productsContext";
 import Loader from "../../Components/Loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDataAsync, productsSelector } from "../../Redux/Reducer/productsReducer";
+import { useEffect } from "react";
 
 // Page for the products
 export default function Products(){
+    const dispatch = useDispatch();
     // Using context
-    const {productLoading, handleSearchProductByName} = useProductContext();
+    const {handleSearchProductByName} = useProductContext();
+
+    // State from products reducer here
+    const { productLoading } = useSelector(productsSelector);
+
+    // Dispatching side fetchDataAsync thunk here
+    useEffect(() => {
+        dispatch(fetchDataAsync());
+    }, []);
+
     // Returning Jsx
     return(
         <>
