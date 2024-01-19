@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { cartSelector, fetchCartDataAsync } from "../../Redux/Reducer/cartReducer";
 import { userSelector } from "../../Redux/Reducer/userReducer";
-import { handleOrder, orderSelector } from "../../Redux/Reducer/OrderReducer";
+import { handleOrder } from "../../Redux/Reducer/OrderReducer";
 
 // Cart page to show items in the user's cart
 export default function CartPage() {
@@ -28,7 +28,7 @@ export default function CartPage() {
             ) : (
                 cartItems.length === 0 ? (
                     <>
-                    <h1 className={styles.noItemsHeading}>No items in the cart!</h1>  
+                        <h1 className={styles.noItemsHeading}>No items in the cart!</h1>
                     </>
                 ) : (
                     <>
@@ -37,18 +37,18 @@ export default function CartPage() {
                             {/* Display total price or other relevant information */}
                             <div className={styles.wrapper}>
                                 <p className={styles.heading}>{`TotalPrice:- ₹${total}/-`}</p>
-                                <button className={styles.purchaseButton} onClick={() => dispatch(handleOrder({signedUser, cartItems, total}))}>Purchase</button>
+                                <button className={styles.purchaseButton} onClick={() => dispatch(handleOrder({ signedUser, cartItems, total }))}>Purchase</button>
                             </div>
                         </div>
 
                         {/* Cart Products List */}
                         <div className={styles.cartItemsContainer}>
                             {cartItems.map((item) => (
-                                <CartItem 
-                                    key={item.id} 
-                                    cartItemId={item.id} 
-                                    title={item.product.title} 
-                                    price={item.product.price} 
+                                <CartItem
+                                    key={item.id}
+                                    cartItemId={item.id}
+                                    title={item.product.title}
+                                    price={item.product.price}
                                     image={item.product.image}
                                     qty={item.qty}
                                 />

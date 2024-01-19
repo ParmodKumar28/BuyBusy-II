@@ -32,32 +32,41 @@ export const fetchCartDataAsync = createAsyncThunk("cart/fetchData", async (sign
 });
 
 // Add to cart async thunk
-export const handleAddToCart = createAsyncThunk("cart/add", async ({ product, signedUser }, { getState }) => {
+export const handleAddToCart = createAsyncThunk("cart/add", async ({ product, signedUser }, { getState, dispatch }) => {
     // Adding to the database
     try {
-        const state = getState(); // Accessing the state directly
-        const cartItems = state.cartReducer.cartItems; 
-        // Checking if it's existing item then updating quantity
+        const state = getState();
+        const cartItems = state.cartReducer.cartItems;
+
+        // Checking if it's an existing item then updating quantity
         const existingItemIndex = cartItems.findIndex(
-            (item) => item.product.id === product.id && item.user.id === signedUser.id
+            (item) => item.product.id === product.id && item.user === signedUser
         );
+
         if (existingItemIndex !== -1) {
             const existingItem = cartItems[existingItemIndex];
             const updatedQty = existingItem.qty + 1;
             const itemRef = doc(collection(db, "cart"), existingItem.id);
-            // Updating item quantity in database
+
+            // Updating item quantity in the database
             await updateDoc(itemRef, {
                 qty: updatedQty,
             });
+
             toast.success("Quantity increased for the item!");
         } else {
+            // If it's not an existing item, add a new one to the cart
             await addDoc(collection(db, "cart"), {
                 user: signedUser,
                 product: product,
                 qty: 1,
             });
+
             toast.success("Product added to cart successfully!");
         }
+
+        // Refresh cart data after adding/updating
+        dispatch(fetchCartDataAsync(signedUser));
     } catch (error) {
         console.log(error);
         toast.error("Something went wrong!");
@@ -66,67 +75,68 @@ export const handleAddToCart = createAsyncThunk("cart/add", async ({ product, si
 
 
 
-  // Handle remove an item from cart
+
+// Handle remove an item from cart
 export const handleRemoveFromCart = createAsyncThunk("cart/remove", async (cartItemId) => {
     // Removing from database
     try {
-      const docRef = doc(collection(db, "cart"), cartItemId);
-      await deleteDoc(docRef);
-      toast.success("Item removed successufully from cart!");
+        const docRef = doc(collection(db, "cart"), cartItemId);
+        await deleteDoc(docRef);
+        toast.success("Item removed successufully from cart!");
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
+        console.log(error);
+        toast.error("Something went wrong!");
     }
-  });
+});
 
-    // Handle increase quantity for a product
-   export const handleIncreaseQty = createAsyncThunk("cart/increaseQty", async (cartItemId) => {
-        try {
-          const itemRef = doc(collection(db, "cart"), cartItemId);
-          // Fetch the current item data
-          const itemSnapshot = await getDoc(itemRef);
-          const currentItem = itemSnapshot.data();
-    
-          // Increment the quantity
-          const updatedQty = currentItem.qty + 1;
-    
-          // Updating item quantity in database
-          await updateDoc(itemRef, {
+// Handle increase quantity for a product
+export const handleIncreaseQty = createAsyncThunk("cart/increaseQty", async (cartItemId) => {
+    try {
+        const itemRef = doc(collection(db, "cart"), cartItemId);
+        // Fetch the current item data
+        const itemSnapshot = await getDoc(itemRef);
+        const currentItem = itemSnapshot.data();
+
+        // Increment the quantity
+        const updatedQty = currentItem.qty + 1;
+
+        // Updating item quantity in database
+        await updateDoc(itemRef, {
             qty: updatedQty,
-          });
-          toast.success("Quantity increased for the item!");
-        } catch (error) {
-          console.log(error);
-          toast.error("Something went wrong!");
-        }
-      });
-    
-      // Handle decrease quantity for a product
-      export const handleDecreaseQty = createAsyncThunk("cart/decreaseQty", async (cartItemId, {dispatch}) => {
-        try {
-          const itemRef = doc(collection(db, "cart"), cartItemId);
-    
-          // Current item
-          const itemSnapshot = await getDoc(itemRef);
-          const currentItem = itemSnapshot.data();
-    
-          // Decreasing quantity
-          const updatedQty = currentItem.qty - 1;
-    
-          if (updatedQty > 0) {
+        });
+        toast.success("Quantity increased for the item!");
+    } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong!");
+    }
+});
+
+// Handle decrease quantity for a product
+export const handleDecreaseQty = createAsyncThunk("cart/decreaseQty", async (cartItemId, { dispatch }) => {
+    try {
+        const itemRef = doc(collection(db, "cart"), cartItemId);
+
+        // Current item
+        const itemSnapshot = await getDoc(itemRef);
+        const currentItem = itemSnapshot.data();
+
+        // Decreasing quantity
+        const updatedQty = currentItem.qty - 1;
+
+        if (updatedQty > 0) {
             // Updating item quantity in the database
             await updateDoc(itemRef, {
-              qty: updatedQty,
+                qty: updatedQty,
             });
             toast.success("Quantity decreased for the item!");
-          } else {
+        } else {
             dispatch(handleRemoveFromCart(cartItemId));
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error("Something went wrong!");
         }
-      });
+    } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong!");
+    }
+});
 
 
 

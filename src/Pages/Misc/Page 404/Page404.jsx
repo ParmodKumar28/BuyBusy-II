@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 // Component to show errors here.
 export default function Page404() {
-    const navigate = useNavigate();
-    //  Function to go back page
-    const back = () => {
-        navigate(-1);
-    }
-    
-    // Returning Jsx
-    return (
+  const navigate = useNavigate();
+  //  Function to go back page
+  const back = () => {
+    navigate(-1);
+  }
+
+  // Returning Jsx
+  return (
     <div className={styles.errorContainer}>
       <div className={styles.errorContent}>
         <h1 className={styles.errorHeading}>404</h1>

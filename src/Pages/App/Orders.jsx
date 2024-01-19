@@ -8,12 +8,12 @@ import { userSelector } from "../../Redux/Reducer/userReducer";
 import { fetchOrders, orderSelector } from "../../Redux/Reducer/OrderReducer";
 
 // Component for the order page
-export default function OrderPage(){
+export default function OrderPage() {
     const dispatch = useDispatch();
 
     // Getting users State
-    const {signedUser} = useSelector(userSelector);
-    const {orderLoading, orders} = useSelector(orderSelector);
+    const { signedUser } = useSelector(userSelector);
+    const { orderLoading, orders } = useSelector(orderSelector);
 
 
     // Fetching orders
@@ -22,16 +22,16 @@ export default function OrderPage(){
     }, [signedUser, dispatch]);
 
     // Returning JSX
-    return(
+    return (
         <>
-        {orderLoading ? <Loader/> : (
-        <>
-        <h1 style={{margin:"2rem", textAlign:"center", color:" #7064E5"}}>{orders.length === 0 ? "You have no orders still!" : "Your Orders"}</h1>
-        {orders.length > 0 && orders.map((order, i) => (
-            <OrderTable key={i} order={order}/>
-        ))}
-        </>
-        )}
+            {orderLoading ? <Loader /> : (
+                <>
+                    <h1 style={{ margin: "2rem", textAlign: "center", color: " #7064E5" }}>{orders.length === 0 ? "You have no orders still!" : "Your Orders"}</h1>
+                    {orders.length > 0 && orders.map((order, i) => (
+                        <OrderTable key={i} order={order} />
+                    ))}
+                </>
+            )}
         </>
     )
 }

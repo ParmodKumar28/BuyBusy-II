@@ -1,5 +1,5 @@
 // Imports
-import { fetchDataAsync, filterProducts, handleCategoryChange, handlePriceChange, productsSelector } from "../../Redux/Reducer/productsReducer";
+import { filterProducts, handleCategoryChange, handlePriceChange, productsSelector } from "../../Redux/Reducer/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Search.module.css";
 import { useEffect } from "react";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 // Functional component for the search and filter
 export default function Search() {
     // Fetching state from products reducer
-    const {searchValue, selectedPrice, selectedCategories} = useSelector(productsSelector);
+    const { searchValue, selectedPrice, selectedCategories } = useSelector(productsSelector);
     const dispatch = useDispatch();
 
     // Dispatching actions

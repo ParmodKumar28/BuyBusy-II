@@ -6,7 +6,6 @@ export const fetchDataAsync = createAsyncThunk(
   "products/fetchData",
   async () => {
     try {
-      console.log("Called");
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
       // Converting the prices in the Dollar to Rupees

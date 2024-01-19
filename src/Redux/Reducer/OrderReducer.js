@@ -64,11 +64,6 @@ export const orderSlice = createSlice({
             state.orderLoading = false;
         },
     },
-    extraReducers: (builder) => {
-        builder.addCase(fetchOrders.fulfilled, (state, action) => {
-            state.orderLoading = false;
-        });
-    }
 });
 
 // Extracting reducer

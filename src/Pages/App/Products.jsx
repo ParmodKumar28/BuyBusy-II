@@ -8,7 +8,7 @@ import { fetchDataAsync, handleSearchProductByName, productsSelector } from "../
 import { useEffect } from "react";
 
 // Page for the products
-export default function Products(){
+export default function Products() {
     const dispatch = useDispatch();
 
     // State from products reducer here
@@ -20,29 +20,29 @@ export default function Products(){
     }, []);
 
     // Returning Jsx
-    return(
+    return (
         <>
-        {/* Showing loader while products loads */}
-        { productLoading ? (
-            <Loader/>
+            {/* Showing loader while products loads */}
+            {productLoading ? (
+                <Loader />
             ) : (
-            <>
-        {/* Search Bar */}
-        <div className={styles.searchBarContainer}>
-        <input type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => dispatch(handleSearchProductByName(event.target.value))}/>
-        </div>
+                <>
+                    {/* Search Bar */}
+                    <div className={styles.searchBarContainer}>
+                        <input type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => dispatch(handleSearchProductByName(event.target.value))} />
+                    </div>
 
-        {/* Search and filter Conatiner */}
-        <div className={styles.searchFilterContainer}>
-            <Search/>
-        </div>
+                    {/* Search and filter Conatiner */}
+                    <div className={styles.searchFilterContainer}>
+                        <Search />
+                    </div>
 
-        {/* All products container */}
-        <div className={styles.productsContainer}>
-            <ProductsList/>
-        </div>
-            </>
-        )}
+                    {/* All products container */}
+                    <div className={styles.productsContainer}>
+                        <ProductsList />
+                    </div>
+                </>
+            )}
         </>
     )
 }

@@ -6,7 +6,7 @@ import { userSelector } from "../../Redux/Reducer/userReducer";
 import { handleAddToCart } from "../../Redux/Reducer/cartReducer"; // Import handleAddToCart
 
 // Functional component for the ProductCard
-export default function ProductsCard({id, title, price, description, image}) {
+export default function ProductsCard({ id, title, price, description, image }) {
     const dispatch = useDispatch();
     // Consuming state from reducers here.
     const { signedUser } = useSelector(userSelector);

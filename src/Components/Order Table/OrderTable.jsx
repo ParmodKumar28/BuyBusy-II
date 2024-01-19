@@ -4,7 +4,7 @@ import styles from "./OrderTable.module.css";
 
 // Component for order table here
 export default function OrderTable({ order }) {
-    // Convert Timestamp to Date
+  // Convert Timestamp to Date
   const date = new Date(order.createdAt.seconds * 1000);
 
   // Format date as a string
