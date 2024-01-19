@@ -19,7 +19,7 @@ export default function OrderPage() {
     // Fetching orders
     useEffect(() => {
         dispatch(fetchOrders(signedUser));
-    }, [signedUser, dispatch]);
+    }, [signedUser]);
 
     // Returning JSX
     return (

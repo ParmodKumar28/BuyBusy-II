@@ -1,11 +1,13 @@
 // Imports
 import styles from "./CartItem.module.css";
-import { useDispatch } from "react-redux";
-import { handleDecreaseQty, handleIncreaseQty, handleRemoveFromCart } from "../../Redux/Reducer/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSelector, handleDecreaseQty, handleIncreaseQty, handleRemoveFromCart } from "../../Redux/Reducer/cartReducer";
 
 // Functional component for the ProductCard of cart item
 export default function ProductsCard({ cartItemId, title, price, image, qty }) {
     const dispatch = useDispatch();
+    // Consuming states
+    const { removeStarted } = useSelector(cartSelector);
 
     // Returning JSX
     return (
@@ -34,7 +36,7 @@ export default function ProductsCard({ cartItemId, title, price, image, qty }) {
             </div>
             <button className={styles.removeFromCartBtn}
                 onClick={() => dispatch(handleRemoveFromCart(cartItemId))}>
-                Remove From Cart
+                { removeStarted.status && removeStarted.id === cartItemId ? "Removing" : "Remove From Cart" }
             </button>
         </div>
     )

@@ -4,23 +4,11 @@ import styles from "./OrderTable.module.css";
 
 // Component for order table here
 export default function OrderTable({ order }) {
-  // Convert Timestamp to Date
-  const date = new Date(order.createdAt.seconds * 1000);
-
-  // Format date as a string
-  const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
 
   // Returning JSX
   return (
     <div className={styles.orderTableContainer}>
-      <h1 className={styles.orderCreatedHeading}>{`Order Created On:- ${formattedDate}`}</h1>
+      <h1 className={styles.orderCreatedHeading}>{`Order Created On:- ${order.createdAt}`}</h1>
       <table className={styles.orderTable}>
         <thead>
           <tr>

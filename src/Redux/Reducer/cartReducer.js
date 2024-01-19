@@ -27,7 +27,6 @@ export const fetchCartDataAsync = createAsyncThunk("cart/fetchData", async (sign
         // Calculating total
         totalPrice = cartItems.reduce((total, item) => total + item.qty * item.product.price, 0);
     }
-
     return { cartItems, totalPrice };
 });
 
@@ -35,6 +34,8 @@ export const fetchCartDataAsync = createAsyncThunk("cart/fetchData", async (sign
 export const handleAddToCart = createAsyncThunk("cart/add", async ({ product, signedUser }, { getState, dispatch }) => {
     // Adding to the database
     try {
+        dispatch(setAddToCartStarted(product.id));
+        // Getting state
         const state = getState();
         const cartItems = state.cartReducer.cartItems;
 
@@ -77,9 +78,10 @@ export const handleAddToCart = createAsyncThunk("cart/add", async ({ product, si
 
 
 // Handle remove an item from cart
-export const handleRemoveFromCart = createAsyncThunk("cart/remove", async (cartItemId) => {
+export const handleRemoveFromCart = createAsyncThunk("cart/remove", async (cartItemId, { dispatch }) => {
     // Removing from database
     try {
+        dispatch(setRemoveStarted(cartItemId));
         const docRef = doc(collection(db, "cart"), cartItemId);
         await deleteDoc(docRef);
         toast.success("Item removed successufully from cart!");
@@ -145,6 +147,14 @@ const INITIAL_STATE = {
     cartItems: [],
     total: 0,
     cartLoading: true,
+    removeStarted: {
+        status: false,
+        id: null
+    },
+    addToCartStarted: {
+        status: false,
+        id: null
+    }
 }
 
 // Creating Slice
@@ -152,13 +162,28 @@ export const cartSlice = createSlice({
     name: "Cart",
     initialState: INITIAL_STATE,
     reducers: {
-
+        setAddToCartStarted: (state, action) => {
+            state.addToCartStarted.status = true;
+            state.addToCartStarted.id = action.payload;
+        },
+        setRemoveStarted: (state, action) => {
+            state.removeStarted.status = true;
+            state.removeStarted.id = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCartDataAsync.fulfilled, (state, action) => {
             state.cartItems = action.payload.cartItems;
             state.total = action.payload.totalPrice;
             state.cartLoading = false;
+        });
+        builder.addCase(handleAddToCart.fulfilled, (state, action) => {
+            state.addToCartStarted.status = false;
+            state.addToCartStarted.id = null;
+        });
+        builder.addCase(handleRemoveFromCart.fulfilled, (state, action) => {
+            state.removeStarted.status = false;
+            state.removeStarted.id = null;
         });
     }
 });
@@ -167,6 +192,7 @@ export const cartSlice = createSlice({
 export const cartReducer = cartSlice.reducer;
 
 // Extracting actions
+const { setRemoveStarted, setAddToCartStarted } = cartSlice.actions;
 
 // Extracting state
 export const cartSelector = (state) => state.cartReducer;

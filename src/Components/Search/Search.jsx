@@ -25,26 +25,26 @@ export default function Search() {
                     <div className={styles.priceRange}>
                         {/* Price range slider */}
                         <span>Price: {selectedPrice}</span>
-                        <input type="range" min="0" max="100000" onChange={(event) => dispatch(handlePriceChange(event.target.value))} />
+                        <input id="1" type="range" min="0" max="100000" onChange={(event) => dispatch(handlePriceChange(event.target.value))} />
                     </div>
                 </div>
                 <div className={styles.categorySection}>
                     <p className={styles.heading}>Category</p>
                     {/* Category checkboxes */}
                     <label>
-                        <input type="checkbox" value="men's clothing" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
+                        <input id="2" type="checkbox" value="men's clothing" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
                         Men's Clothing
                     </label>
                     <label>
-                        <input type="checkbox" value="women's clothing" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
+                        <input id="3" type="checkbox" value="women's clothing" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
                         Women's Clothing
                     </label>
                     <label>
-                        <input type="checkbox" value="jewelery" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
+                        <input id="4" type="checkbox" value="jewelery" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
                         Jewelry
                     </label>
                     <label>
-                        <input type="checkbox" value="electronics" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
+                        <input id="5" type="checkbox" value="electronics" onChange={(event) => dispatch(handleCategoryChange(event.target.value))} />
                         Electronics
                     </label>
                 </div>

@@ -29,7 +29,7 @@ export default function Products() {
                 <>
                     {/* Search Bar */}
                     <div className={styles.searchBarContainer}>
-                        <input type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => dispatch(handleSearchProductByName(event.target.value))} />
+                        <input name="search" type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => dispatch(handleSearchProductByName(event.target.value))} />
                     </div>
 
                     {/* Search and filter Conatiner */}
