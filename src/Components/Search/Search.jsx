@@ -2,17 +2,23 @@
 import { filterProducts, handleCategoryChange, handlePriceChange, productsSelector } from "../../Redux/Reducer/productsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Search.module.css";
+import { useEffect } from "react";
 
 // Functional component for the search and filter
 export default function Search() {
     // Fetching state from products reducer
-    const {selectedPrice} = useSelector(productsSelector);
+    const {selectedPrice, selectedCategories} = useSelector(productsSelector);
     const dispatch = useDispatch();
+
+    // Dispatching actions
+    useEffect(() => {
+        dispatch(filterProducts());
+    }, [selectedPrice, selectedCategories, dispatch]);
 
     // Returning JSX
     return (
         <div className={styles.searchFilterContainer}>
-            <form onChange={dispatch(filterProducts())}>
+            <form>
                 <div className={styles.filterSection}>
                     <p className={styles.heading}>Filter</p>
                     <div className={styles.priceRange}>

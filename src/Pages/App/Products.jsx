@@ -2,17 +2,14 @@
 import styles from "./Products.module.css";
 import Search from "../../Components/Search/Search";
 import ProductsList from "../../Components/Products List/ProductsList";
-import { useProductContext } from "../../Context/productsContext";
 import Loader from "../../Components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataAsync, productsSelector } from "../../Redux/Reducer/productsReducer";
+import { fetchDataAsync, handleSearchProductByName, productsSelector } from "../../Redux/Reducer/productsReducer";
 import { useEffect } from "react";
 
 // Page for the products
 export default function Products(){
     const dispatch = useDispatch();
-    // Using context
-    const {handleSearchProductByName} = useProductContext();
 
     // State from products reducer here
     const { productLoading } = useSelector(productsSelector);
@@ -32,7 +29,7 @@ export default function Products(){
             <>
         {/* Search Bar */}
         <div className={styles.searchBarContainer}>
-        <input type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => handleSearchProductByName(event)}/>
+        <input type="search" placeholder="Search By Name" className={styles.searchBar} onChange={(event) => dispatch(handleSearchProductByName(event.target.value))}/>
         </div>
 
         {/* Search and filter Conatiner */}
