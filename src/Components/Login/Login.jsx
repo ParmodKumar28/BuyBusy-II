@@ -16,7 +16,7 @@ export default function Login(){
 
     // Calling Sign In
     const handleSignIn = (e) => {
-        dispatch(signInActionCalled);
+        dispatch(signInActionCalled());
         e.preventDefault(); // Prevent default form submission
         dispatch(signInAsync({email, password})) // Trigger signin logic dispatching action here
         setEmail("");

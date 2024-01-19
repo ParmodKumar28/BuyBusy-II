@@ -127,161 +127,161 @@ export function CustomProductContext({ children }) {
 
   // --------------------------------Cart and order features starts from here--------------------------------------------//
   // Getting all products in cart
-  useEffect(() => {
-    const fetchData = async () => {
-      if (signedUser) {
-        // Filtering only the user cart items
-        const cartQuery = query(
-          collection(db, "cart"),
-          where("user", "==", signedUser)
-        );
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (signedUser) {
+  //       // Filtering only the user cart items
+  //       const cartQuery = query(
+  //         collection(db, "cart"),
+  //         where("user", "==", signedUser)
+  //       );
 
-        const unsubscribe = onSnapshot(cartQuery, (snapShot) => {
-          const cartData = snapShot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+  //       const unsubscribe = onSnapshot(cartQuery, (snapShot) => {
+  //         const cartData = snapShot.docs.map((doc) => ({
+  //           id: doc.id,
+  //           ...doc.data(),
+  //         }));
 
-          // Setting data
-          setCartItems(cartData);
-          if (cartItems) {
-            setcartLoading(false);
-          }
+  //         // Setting data
+  //         setCartItems(cartData);
+  //         if (cartItems) {
+  //           setcartLoading(false);
+  //         }
 
-          // Calculating total and setting to total state
-          const totalPrice = cartData.reduce(
-            (total, item) => total + item.qty * item.product.price,
-            0
-          );
-          // Setting state
-          setTotal(totalPrice);
-        });
-        // Stop listening to changes
-        return () => unsubscribe();
-      }
-    };
-    fetchData();
-  }, [signedUser, cartItems]);
+  //         // Calculating total and setting to total state
+  //         const totalPrice = cartData.reduce(
+  //           (total, item) => total + item.qty * item.product.price,
+  //           0
+  //         );
+  //         // Setting state
+  //         setTotal(totalPrice);
+  //       });
+  //       // Stop listening to changes
+  //       return () => unsubscribe();
+  //     }
+  //   };
+  //   fetchData();
+  // }, [signedUser, cartItems]);
 
   // Handling add to cart function here
-  const handleAddToCart = async (product, user) => {
-    // Adding to the database
-    try {
-      // Checking if it's existing item then updating quantity
-      const existingItemIndex = cartItems.findIndex(
-        (item) => item.product.title === product.title && item.user === user
-      );
-      if (existingItemIndex !== -1) {
-        const existingItem = cartItems[existingItemIndex];
-        const updatedQty = existingItem.qty + 1;
-        const itemRef = doc(collection(db, "cart"), existingItem.id);
-        // Updating imtem quantity in database
-        await updateDoc(itemRef, {
-          qty: updatedQty,
-        });
-        toast.success("Quantity increased for the item!");
-      } else {
-        await addDoc(collection(db, "cart"), {
-          user: user,
-          product: product,
-          qty: 1,
-        });
-        toast.success("Product added to cart successfully!");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
+  // const handleAddToCart = async (product, user) => {
+  //   // Adding to the database
+  //   try {
+  //     // Checking if it's existing item then updating quantity
+  //     const existingItemIndex = cartItems.findIndex(
+  //       (item) => item.product.title === product.title && item.user === user
+  //     );
+  //     if (existingItemIndex !== -1) {
+  //       const existingItem = cartItems[existingItemIndex];
+  //       const updatedQty = existingItem.qty + 1;
+  //       const itemRef = doc(collection(db, "cart"), existingItem.id);
+  //       // Updating imtem quantity in database
+  //       await updateDoc(itemRef, {
+  //         qty: updatedQty,
+  //       });
+  //       toast.success("Quantity increased for the item!");
+  //     } else {
+  //       await addDoc(collection(db, "cart"), {
+  //         user: user,
+  //         product: product,
+  //         qty: 1,
+  //       });
+  //       toast.success("Product added to cart successfully!");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
 
   // Handle remove an item from cart
-  const handleRemoveFromCart = async (cartItemId) => {
-    // Removing from database
-    try {
-      const docRef = doc(collection(db, "cart"), cartItemId);
-      await deleteDoc(docRef);
-      toast.success("Item removed successufully from cart!");
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
+  // const handleRemoveFromCart = async (cartItemId) => {
+  //   // Removing from database
+  //   try {
+  //     const docRef = doc(collection(db, "cart"), cartItemId);
+  //     await deleteDoc(docRef);
+  //     toast.success("Item removed successufully from cart!");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
 
   // Handle increase quantity for a product
-  const handleIncreaseQty = async (cartItemId) => {
-    try {
-      const itemRef = doc(collection(db, "cart"), cartItemId);
-      // Fetch the current item data
-      const itemSnapshot = await getDoc(itemRef);
-      const currentItem = itemSnapshot.data();
+  // const handleIncreaseQty = async (cartItemId) => {
+  //   try {
+  //     const itemRef = doc(collection(db, "cart"), cartItemId);
+  //     // Fetch the current item data
+  //     const itemSnapshot = await getDoc(itemRef);
+  //     const currentItem = itemSnapshot.data();
 
-      // Increment the quantity
-      const updatedQty = currentItem.qty + 1;
+  //     // Increment the quantity
+  //     const updatedQty = currentItem.qty + 1;
 
-      // Updating item quantity in database
-      await updateDoc(itemRef, {
-        qty: updatedQty,
-      });
-      toast.success("Quantity increased for the item!");
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
+  //     // Updating item quantity in database
+  //     await updateDoc(itemRef, {
+  //       qty: updatedQty,
+  //     });
+  //     toast.success("Quantity increased for the item!");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
 
   // Handle decrease quantity for a product
-  const handleDecreaseQty = async (cartItemId) => {
-    try {
-      const itemRef = doc(collection(db, "cart"), cartItemId);
+  // const handleDecreaseQty = async (cartItemId) => {
+  //   try {
+  //     const itemRef = doc(collection(db, "cart"), cartItemId);
 
-      // Current item
-      const itemSnapshot = await getDoc(itemRef);
-      const currentItem = itemSnapshot.data();
+  //     // Current item
+  //     const itemSnapshot = await getDoc(itemRef);
+  //     const currentItem = itemSnapshot.data();
 
-      // Decreasing quantity
-      const updatedQty = currentItem.qty - 1;
+  //     // Decreasing quantity
+  //     const updatedQty = currentItem.qty - 1;
 
-      if (updatedQty > 0) {
-        // Updating item quantity in the database
-        await updateDoc(itemRef, {
-          qty: updatedQty,
-        });
-        toast.success("Quantity decreased for the item!");
-      } else {
-        handleRemoveFromCart(cartItemId);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
+  //     if (updatedQty > 0) {
+  //       // Updating item quantity in the database
+  //       await updateDoc(itemRef, {
+  //         qty: updatedQty,
+  //       });
+  //       toast.success("Quantity decreased for the item!");
+  //     } else {
+  //       handleRemoveFromCart(cartItemId);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
 
   // Function to create order here
-  const handleOrder = async () => {
-    try {
-      await addDoc(collection(db, "orders"), {
-        cartItems: cartItems,
-        total: total,
-        user: signedUser,
-        createdAt: new Date(),
-      });
-      // Remove items from the cart after a successful order
-      const cartQuery = query(
-        collection(db, "cart"),
-        where("user", "==", signedUser)
-      );
-      const cartSnapshot = await getDocs(cartQuery);
+  // const handleOrder = async () => {
+  //   try {
+  //     await addDoc(collection(db, "orders"), {
+  //       cartItems: cartItems,
+  //       total: total,
+  //       user: signedUser,
+  //       createdAt: new Date(),
+  //     });
+  //     // Remove items from the cart after a successful order
+  //     const cartQuery = query(
+  //       collection(db, "cart"),
+  //       where("user", "==", signedUser)
+  //     );
+  //     const cartSnapshot = await getDocs(cartQuery);
 
-      // Delete each item in the cart
-      cartSnapshot.forEach(async (doc) => {
-        await deleteDoc(doc.ref);
-      });
-      toast.success("Order created Successfully");
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong!");
-    }
-  };
+  //     // Delete each item in the cart
+  //     cartSnapshot.forEach(async (doc) => {
+  //       await deleteDoc(doc.ref);
+  //     });
+  //     toast.success("Order created Successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong!");
+  //   }
+  // };
 
   // Returning Here
   return (
@@ -294,14 +294,14 @@ export function CustomProductContext({ children }) {
         // isFiltered,
         // filteredProducts,
         // handleSearchProductByName,
-        handleAddToCart,
-        cartItems,
-        cartLoading,
-        handleRemoveFromCart,
-        total,
-        handleDecreaseQty,
-        handleIncreaseQty,
-        handleOrder,
+        // handleAddToCart,
+        // cartItems,
+        // cartLoading,
+        // handleRemoveFromCart,
+        // total,
+        // handleDecreaseQty,
+        // handleIncreaseQty,
+        // handleOrder,
         orderLoading,
         setOrderLoading,
       }}

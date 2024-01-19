@@ -6,6 +6,7 @@ export const fetchDataAsync = createAsyncThunk(
   "products/fetchData",
   async () => {
     try {
+      console.log("Called");
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
       // Converting the prices in the Dollar to Rupees
@@ -64,7 +65,7 @@ export const productsSlice = createSlice({
       let filteredProducts = state.products;
 
       // If both price and categories selected
-      if (state.selectedPrice && state.selectedCategories.length > 0) {
+      if (state.selectedPrice > 0 && state.selectedCategories.length > 0) {
         filteredProducts = state.products.filter(
           (product) =>
             product.price <= state.selectedPrice &&
@@ -74,7 +75,7 @@ export const productsSlice = createSlice({
         filteredProducts = state.products.filter((product) =>
           product.title.toLowerCase().includes(state.searchValue)
         );
-      } else if (state.selectedPrice) {
+      } else if (state.selectedPrice > 0) {
         filteredProducts = state.products.filter(
           (product) => product.price <= state.selectedPrice
         );
@@ -86,7 +87,7 @@ export const productsSlice = createSlice({
       // If price and categories both deselected then setting isFiltered false
       else if (
         !state.searchValue &&
-        !state.selectedPrice &&
+        state.selectedPrice === 0 &&
         state.selectedCategories.length === 0
       ) {
         state.isFiltered = false;

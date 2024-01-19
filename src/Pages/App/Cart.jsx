@@ -1,13 +1,24 @@
 // Imports
-import { useProductContext } from "../../Context/productsContext";
 import styles from "./Cart.module.css";
 import Loader from "../../Components/Loader/Loader";
 import CartItem from "../../Components/Cart Item/CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { cartSelector, fetchCartDataAsync } from "../../Redux/Reducer/cartReducer";
+import { userSelector } from "../../Redux/Reducer/userReducer";
+import { handleOrder, orderSelector } from "../../Redux/Reducer/OrderReducer";
 
 // Cart page to show items in the user's cart
 export default function CartPage() {
-    // Consuming product context here.
-    const { cartLoading, cartItems, total, handleOrder } = useProductContext();
+    // Consuming reducers
+    const { signedUser } = useSelector(userSelector);
+    const { cartLoading, cartItems, total } = useSelector(cartSelector);
+    const dispatch = useDispatch();
+
+    // Dispatching action to fetch cart data
+    useEffect(() => {
+        dispatch(fetchCartDataAsync(signedUser));
+    }, [signedUser, cartItems, dispatch]);
 
     // Returning JSX
     return (
@@ -26,7 +37,7 @@ export default function CartPage() {
                             {/* Display total price or other relevant information */}
                             <div className={styles.wrapper}>
                                 <p className={styles.heading}>{`TotalPrice:- ₹${total}/-`}</p>
-                                <button className={styles.purchaseButton} onClick={handleOrder}>Purchase</button>
+                                <button className={styles.purchaseButton} onClick={() => dispatch(handleOrder({signedUser, cartItems, total}))}>Purchase</button>
                             </div>
                         </div>
 

@@ -1,11 +1,11 @@
 // Imports
 import styles from "./CartItem.module.css";
-import { useProductContext } from "../../Context/productsContext";
+import { useDispatch } from "react-redux";
+import {  handleDecreaseQty, handleIncreaseQty, handleRemoveFromCart } from "../../Redux/Reducer/cartReducer";
 
 // Functional component for the ProductCard of cart item
 export default function ProductsCard({cartItemId, title, price, image, qty}){
-    // Consuming product context here
-    const {handleRemoveFromCart, handleDecreaseQty, handleIncreaseQty} = useProductContext();
+    const dispatch = useDispatch();
 
     // Returning JSX
     return(
@@ -20,20 +20,20 @@ export default function ProductsCard({cartItemId, title, price, image, qty}){
             <p className={styles.productPrice}>{`₹ ${price}`}</p> 
             <span className={styles.qtyContainer}>
                 <img 
-                    onClick={() => handleDecreaseQty(cartItemId)}
+                    onClick={() => dispatch(handleDecreaseQty(cartItemId))}
                     src="https://cdn-icons-png.flaticon.com/128/3388/3388913.png"
                     alt="Remove"
                 />
                 <p>{qty}</p>
                 <img 
-                    onClick={() => handleIncreaseQty(cartItemId)} 
+                    onClick={() => dispatch(handleIncreaseQty(cartItemId))} 
                     src="https://cdn-icons-png.flaticon.com/128/1828/1828919.png" 
                     alt="Add"
                 />
             </span>
             </div>
             <button className={styles.removeFromCartBtn}
-                onClick={() => handleRemoveFromCart(cartItemId)}>
+                onClick={() => dispatch(handleRemoveFromCart(cartItemId))}>
                 Remove From Cart
                 </button>
         </div>

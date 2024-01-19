@@ -1,54 +1,25 @@
 // Order's Page
 // Imports
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react"
-import { db } from "../../Database/firebaseConfig";
-import { toast } from "react-toastify";
+import { useEffect } from "react"
 import OrderTable from "../../Components/Order Table/OrderTable";
 import Loader from "../../Components/Loader/Loader";
-import { useProductContext } from "../../Context/productsContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../Redux/Reducer/userReducer";
+import { fetchOrders, orderSelector } from "../../Redux/Reducer/OrderReducer";
 
 // Component for the order page
 export default function OrderPage(){
-    // States
-    const [orders, setOrders] = useState([]);
+    const dispatch = useDispatch();
 
     // Getting users State
     const {signedUser} = useSelector(userSelector);
+    const {orderLoading, orders} = useSelector(orderSelector);
 
-    // Consuming user produuct context here
-    const {orderLoading, setOrderLoading} = useProductContext();
 
     // Fetching orders
     useEffect(() => {
-
-        // Fetching data
-        const fetchData = async() => {
-            try {
-                const orderQuery = query(collection(db, "orders"), where("user", "==", signedUser));
-                const unsubscribe = onSnapshot(orderQuery, (snapShot) => {
-                    const orderData = snapShot.docs.map((doc) => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }));
-
-                    // Setting orders state
-                    setOrders(orderData);
-                    setOrderLoading(false);
-                    // toast.success("You Orders!");
-
-                    return () => unsubscribe();
-                })
-            } catch (error) {
-                console.log(error);
-                toast.error("Something went wrong!");
-            }
-        }
-
-        fetchData();
-    }, [signedUser, setOrderLoading]);
+        dispatch(fetchOrders(signedUser));
+    }, [signedUser, dispatch]);
 
     // Returning JSX
     return(
