@@ -49,7 +49,7 @@ To get a local copy of the project and run it on your machine, follow these step
 - git clone https://github.com/ParmodKumar28/BuyBusy-I
 
 2. Navigate to the project directory:
-- cd BuyBusy-I
+- cd BuyBusy-II
 
 3. Install dependencies:
 - npm install
