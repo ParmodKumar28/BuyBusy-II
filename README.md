@@ -10,6 +10,13 @@ Busy Buy is an e-commerce web application built with React and Redux toolkit. It
 - Add to order or purchase
 - Order history tracking
 
+## Technologies Used 💻
+
+- **React**: Building user interfaces with JavaScript.
+- **Redux Toolkit**: Managing app state efficiently.
+- **Firebase**: Cloud platform for web app development.
+- **HTML, CSS, JavaScript**: Standard web technologies.
+
 ## Project Structure 🏗️
 
 The project is organized into several components, pages, and database and Redux files
