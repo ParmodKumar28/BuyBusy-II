@@ -1,8 +1,8 @@
-# Busy Buy
+# Busy Buy 🛒
 
 Busy Buy is an e-commerce web application built with React and Redux toolkit. It allows users to sign up, sign in, browse products, live filter products, add them to the cart, and make purchases.
 
-## Features
+## Features 🚀
 
 - User authentication (Sign Up, Sign In, Logout)
 - Product browsing and filtering
@@ -10,7 +10,7 @@ Busy Buy is an e-commerce web application built with React and Redux toolkit. It
 - Add to order or purchase
 - Order history tracking
 
-## Project Structure
+## Project Structure 🏗️
 
 The project is organized into several components, pages, and database and Redux files
 - src
@@ -18,26 +18,43 @@ The project is organized into several components, pages, and database and Redux 
   - Database
   - Pages
   - Redux
-    - [More details about your redux structure here]
+    - Reducers
+    - Store.js
 
-## Getting Started
-## 🍿 Video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IOAY1xFkL0c?si=Snps0_Ksq9auEo-3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+### 🍿 Video
+[Watch Video Demo](https://github.com/ParmodKumar28/BuyBusy-II/assets/91540271/324cd0fd-3164-493a-b24f-61b43c0c193b)
 
-## Firestore Database Structure
+## Firestore Database Structure 🗃️
 #### collections:
 - users: Store users' information.
 - cart: Store cart items of all users.
 - orders: store orders of all users.
 
-## Getting Started
+## Getting Started 🚀
 To get a local copy of the project and run it on your machine, follow these steps:
 
-### Prerequisites
+### Prerequisites ⚙️
 - Node.js and npm/yarn installed on your machine
 - Firebase project and credentials (Firestore setup)
 
-### Installation
+### Installation 🛠️
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/ParmodKumar28/BuyBusy-II
+- git clone https://github.com/ParmodKumar28/BuyBusy-I
+
+2. Navigate to the project directory:
+- cd BuyBusy-I
+
+3. Install dependencies:
+- npm install
+
+4. Set up Firebase:
+- Create a Firebase project and set up Firestore.
+- Obtain Firebase configuration credentials.
+- Add Firebase config in firebaseConfig.js or similar, if not already present.
+
+### Usage 🚀
+1. Start the development server:
+- npm start
+
+2. Open the app in your browser:
+- http://localhost:3000
