@@ -21,6 +21,9 @@ The project is organized into several components, pages, and database and Redux 
 ## All the logic or global state is in redux reducers folder i created separate reducers for each user, product, cart and order and store.js is also in Redux folder
 
 ## Getting Started
+### Demo: https://buybusy-oo2b.onrender.com
+[![Video Demo]](https://youtu.be/IOAY1xFkL0c)
+
 
 ## Firestore Database Structure
 #### collections:
