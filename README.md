@@ -18,6 +18,7 @@ The project is organized into several components, pages, and database and Redux 
 - Database
 - Pages
 - Redux
+## All the logic or global state is in redux reducers folder i created separate reducers for each user, product, cart and order and store.js is also in Redux folder
 
 ## Getting Started
 
