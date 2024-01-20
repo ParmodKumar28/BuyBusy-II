@@ -22,7 +22,7 @@ The project is organized into several components, pages, and database and Redux 
 
 ## Getting Started
 ## 🍿 Video
-C:\Users\MSI 1\Desktop\Projects Container\React Projects\BuyBusy-II\Assets\BuyBusy-II E-Commerce.mp4
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IOAY1xFkL0c?si=Snps0_Ksq9auEo-3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Firestore Database Structure
 #### collections:
