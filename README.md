@@ -1,22 +1,23 @@
 # Busy Buy
 
-Busy Buy is an e-commerce web application built with React. It allows users to sign up, sign in, browse products, add them to the cart, and make purchases.
+Busy Buy is an e-commerce web application built with React and Redux toolkit. It allows users to sign up, sign in, browse products , live filter products, add them to the cart, and make purchases.
 
 ## Features
 
 - User authentication (Sign Up, Sign In, Logout)
 - Product browsing and filtering
 - Shopping cart functionality
+- Add to order or purchase
 - Order history tracking
 
 ## Project Structure
 
-The project is organized into several components, pages, and context files.
-## src
+The project is organized into several components, pages, and database and Redux files
+- src
 - Components
-- Context
 - Database
 - Pages
+- Redux
 
 ## Getting Started
 
@@ -35,10 +36,10 @@ To get a local copy of the project and run it on your machine, follow these step
 
 ### Installation
 1. Clone the repository:
-- git clone https://github.com/ParmodKumar28/BuyBusy-I
+- git clone https://github.com/ParmodKumar28/BuyBusy-II
 
 2. Navigate to the project directory:
-- cd BuyBusy-I
+- cd BuyBusy-II
 
 3. Install dependencies:
 - npm install
@@ -47,6 +48,7 @@ To get a local copy of the project and run it on your machine, follow these step
 - Create a Firebase project and set up Firestore.
 - Obtain Firebase configuration credentials.
 - Add Firebase config in firebaseConfig.js or similar, if not already present.
+- all firebaseConfig files is in env 
 
 ### Usage 
 1. Start the development server:
