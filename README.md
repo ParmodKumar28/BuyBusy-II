@@ -21,9 +21,8 @@ The project is organized into several components, pages, and database and Redux 
     - [More details about your redux structure here]
 
 ## Getting Started
-### Demo: [Watch Video Demo](https://youtu.be/IOAY1xFkL0c)
-
-[![Busy Buy Video Demo](https://rb.gy/ojlw6a)](https://youtu.be/IOAY1xFkL0c)
+## 🍿 Video
+https://youtu.be/IOAY1xFkL0c
 
 ## Firestore Database Structure
 #### collections:
