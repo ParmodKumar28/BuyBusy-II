@@ -22,7 +22,7 @@ The project is organized into several components, pages, and database and Redux 
     - Store.js
 
 ### 🍿 Video
-[Watch Video Demo](https://github.com/ParmodKumar28/BuyBusy-II/assets/91540271/324cd0fd-3164-493a-b24f-61b43c0c193b)
+https://github.com/ParmodKumar28/BuyBusy-II/assets/91540271/324cd0fd-3164-493a-b24f-61b43c0c193b
 
 ## Firestore Database Structure 🗃️
 #### collections:
