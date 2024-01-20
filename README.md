@@ -1,6 +1,6 @@
 # Busy Buy
 
-Busy Buy is an e-commerce web application built with React and Redux toolkit. It allows users to sign up, sign in, browse products , live filter products, add them to the cart, and make purchases.
+Busy Buy is an e-commerce web application built with React and Redux toolkit. It allows users to sign up, sign in, browse products, live filter products, add them to the cart, and make purchases.
 
 ## Features
 
@@ -14,20 +14,20 @@ Busy Buy is an e-commerce web application built with React and Redux toolkit. It
 
 The project is organized into several components, pages, and database and Redux files
 - src
-- Components
-- Database
-- Pages
-- Redux
-## All the logic or global state is in redux reducers folder i created separate reducers for each user, product, cart and order and store.js is also in Redux folder
+  - Components
+  - Database
+  - Pages
+  - Redux
+    - [More details about your redux structure here]
 
 ## Getting Started
-### Demo: https://buybusy-oo2b.onrender.com
-[![Video Demo]](https://youtu.be/IOAY1xFkL0c)
+### Demo: [Watch Video Demo](https://youtu.be/IOAY1xFkL0c)
 
+[![Busy Buy Video Demo](https://rb.gy/ojlw6a)](https://youtu.be/IOAY1xFkL0c)
 
 ## Firestore Database Structure
 #### collections:
-- users: Store users information.
+- users: Store users' information.
 - cart: Store cart items of all users.
 - orders: store orders of all users.
 
@@ -40,24 +40,5 @@ To get a local copy of the project and run it on your machine, follow these step
 
 ### Installation
 1. Clone the repository:
-- git clone https://github.com/ParmodKumar28/BuyBusy-II
-
-2. Navigate to the project directory:
-- cd BuyBusy-II
-
-3. Install dependencies:
-- npm install
-
-4. Set up Firebase:
-- Create a Firebase project and set up Firestore.
-- Obtain Firebase configuration credentials.
-- Add Firebase config in firebaseConfig.js or similar, if not already present.
-- all firebaseConfig files is in env 
-
-### Usage 
-1. Start the development server:
-- npm start
-
-2. Open the app in your browser:
-- http://localhost:3000
-"# BuyBusy-II" 
+   ```sh
+   git clone https://github.com/ParmodKumar28/BuyBusy-II
