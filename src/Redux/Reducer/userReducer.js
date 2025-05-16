@@ -3,7 +3,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast';
 
 // Local Imports
 import { db } from "../../Database/firebaseConfig";

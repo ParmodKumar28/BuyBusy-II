@@ -9,7 +9,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast';
 import { db } from "../../Database/firebaseConfig";
 
 // Creating all the async thunks here for asynchronous functions
@@ -39,26 +39,31 @@ export const fetchOrders = createAsyncThunk(
 // Function to create order here
 export const handleOrder = createAsyncThunk(
   "orders/create",
-  async ({ signedUser, cartItems, total }) => {
+  async ({ signedUser, cartItems, total, paymentStatus }) => {
     try {
-      await addDoc(collection(db, "orders"), {
-        cartItems: cartItems,
-        total: total,
-        user: signedUser,
-        createdAt: new Date().toUTCString(),
-      });
-      // Remove items from the cart after a successful order
-      const cartQuery = query(
-        collection(db, "cart"),
-        where("user", "==", signedUser)
-      );
-      const cartSnapshot = await getDocs(cartQuery);
+      if (paymentStatus === "success") {
+        await addDoc(collection(db, "orders"), {
+          cartItems: cartItems,
+          total: total,
+          user: signedUser,
+          createdAt: new Date().toUTCString(),
+          payementStatus: paymentStatus,
+        });
+        // Remove items from the cart after a successful order
+        const cartQuery = query(
+          collection(db, "cart"),
+          where("user", "==", signedUser)
+        );
+        const cartSnapshot = await getDocs(cartQuery);
 
-      // Delete each item in the cart
-      cartSnapshot.forEach(async (doc) => {
-        await deleteDoc(doc.ref);
-      });
-      toast.success("Order created Successfully");
+        // Delete each item in the cart
+        cartSnapshot.forEach(async (doc) => {
+          await deleteDoc(doc.ref);
+        });
+        toast.success("Order created Successfully");
+      } else {
+        toast.error("Payment was not successful. Order not created.");
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong!");
@@ -70,6 +75,7 @@ export const handleOrder = createAsyncThunk(
 const INITIAL_STATE = {
   orders: [],
   orderLoading: true,
+  paymentStatus: "idle",
 };
 
 // Creating slice
@@ -81,6 +87,12 @@ export const orderSlice = createSlice({
       state.orders = action.payload;
       state.orderLoading = false;
     },
+    paymentSuccess: (state) => {
+      state.paymentStatus = "success";
+    },
+    paymentFailure: (state) => {
+      state.paymentStatus = "failed";
+    },
   },
 });
 
@@ -88,7 +100,7 @@ export const orderSlice = createSlice({
 export const orderReducer = orderSlice.reducer;
 
 // Extracting actions
-export const { setOrders } = orderSlice.actions;
+export const { setOrders, paymentSuccess, paymentFailure } = orderSlice.actions;
 
 // Extracting state
 export const orderSelector = (state) => state.orderReducer;

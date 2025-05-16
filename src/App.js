@@ -5,12 +5,13 @@ import Products from "./Pages/App/Products";
 import SignIn from "./Pages/App/SignIn";
 import SignUp from "./Pages/App/SignUp";
 import Page404 from "./Pages/Misc/Page 404/Page404";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import CartPage from "./Pages/App/Cart";
 import OrderPage from "./Pages/App/Orders";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   // Creating router
@@ -34,7 +35,18 @@ function App() {
         <RouterProvider router={router} />
       </Provider>
       {/* Notification Component */}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+        }}
+      />
     </>
   );
 }

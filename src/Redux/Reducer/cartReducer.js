@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { db } from "../../Database/firebaseConfig";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast';
 
 // Creating async thunks here for asynchronous functions
 export const fetchCartDataAsync = createAsyncThunk("cart/fetchData", async (signedUser) => {
